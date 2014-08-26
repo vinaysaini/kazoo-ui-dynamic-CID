@@ -1,0 +1,48 @@
+<div>
+    <div class="dialog_popup">
+            <div class="form_content" id="form">
+                <div class="popup_field">
+                    <label for="cid_name_prefix">Caller ID Override </label>
+                    <input type="text" id="caller_id_override" value="${data_cid.caller_id_override}"/>
+		    {{if data_cid.enabled}}
+			<input type="checkbox" id="caller_id_override_select" class="featurecode_enabled" checked="checked">
+		    {{else}}
+			<input type="checkbox" id="caller_id_override_select" class="featurecode_enabled">
+	    	    {{/if}}
+                </div>
+                <label for="endpoint_selector">Select Group</label>
+                    <div class="select_wrapper">
+                        <select id="endpoint_selector" multiple>
+                            {{each(i, item) data_cid.items}}
+                                    	<option id="${item.id}" data-type="${i}" value="${item.id}">${item.name}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="clear"/>
+		<h1>Dial Pattern to Match</h1>
+		<div id="addinput">
+{{if data_cid.pattern}}
+{{each(i,pattern) data_cid.pattern}}
+		    <div id="p_new${i}">
+			(<input type="text" id="cid_name_prefix${i}0" placeholder="prepend" value="${pattern.prepend}" style="width: 75px;"/>)+
+			<input type="text" id="cid_name_prefix${i}1" placeholder="prefix" value="${pattern.prefix}" style="width: 75px;"/>|
+			<input type="text" id="cid_name_prefix${i}2" placeholder="match pattern" value="${pattern.match_pattern}" style="width: 150px;"/>
+			<input type="checkbox" id="remove${i}" class="featurecode_enabled"/>
+		    </div>
+{{/each}}
+{{else}}
+		    <div id="p_new0">
+			(<input type="text" id="cid_name_prefix00" placeholder="prepend" value="" style="width: 75px;"/>)+
+			<input type="text" id="cid_name_prefix01" placeholder="prefix" value="" style="width: 75px;"/>|
+			<input type="text" id="cid_name_prefix02" placeholder="match pattern" value="" style="width: 150px;"/>
+			<input type="checkbox" id="remove0" class="featurecode_enabled"/>
+		    </div>
+{{/if}}
+        	</div>
+		<br/><button id="addNew" class="btn primary">Add More Dial Pattern Fields</button>
+		 <button id="removeBtn" class="btn danger">Remove Selected</button>
+        <div class="buttons-center">
+            <br/><button id="addautocid" class="btn primary">OK</button>
+        </div>
+    </div>
+</div>
